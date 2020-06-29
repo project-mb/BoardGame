@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 656652058}
   - component: {fileID: 656652057}
   m_Layer: 0
-  m_Name: GameController
+  m_Name: Board
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 656652056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11543dc6cf12f7f4f955857a98f8cc26, type: 3}
+  m_Script: {fileID: 11500000, guid: 0148dd00ce6f9ba4fa9a54829191e417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &656652058
