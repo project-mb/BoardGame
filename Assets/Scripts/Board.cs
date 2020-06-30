@@ -9,17 +9,12 @@ public class Board : MonoBehaviour
 	public GameObject tile;
 	public GameObject cornerTile;
 
-	public List<GameObject> tiles;
+	public static List<GameObject> tiles;
 
 	private float tileWidth, tileHeight, cornerTileWidth, cornerTileHeight;
 
 	private GameObject tempTile;
 	private GameObject tempCorner;
-
-	private void Awake()
-	{
-		GenerateNew(10, 10);
-	}
 
 	public void GenerateNew(ushort width, ushort height)
 	{
@@ -31,8 +26,6 @@ public class Board : MonoBehaviour
 		tileHeight = tile.transform.localScale.x;
 		cornerTileWidth = cornerTile.transform.localScale.z;
 		cornerTileHeight = cornerTile.transform.localScale.x;
-
-		Camera.main.transform.position = new Vector3((width * tileWidth + 2 * cornerTileWidth) / 2, 10f, (height * tileWidth + 2 * cornerTileHeight) / 2);
 
 		tempCorner = cornerTile;
 		tempTile = tile;

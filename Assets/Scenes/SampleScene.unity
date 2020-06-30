@@ -153,7 +153,6 @@ MonoBehaviour:
   tile: {fileID: 4100096996083556656, guid: efcc190f6d446ac408ddc8a1fe786b80, type: 3}
   cornerTile: {fileID: 300074937568083964, guid: 5fc4927b19e93de4aa28c0ad65899c7c,
     type: 3}
-  tiles: []
 --- !u!4 &28842613
 Transform:
   m_ObjectHideFlags: 0
