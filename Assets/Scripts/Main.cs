@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Main : MonoBehaviour
@@ -16,7 +17,7 @@ public class Main : MonoBehaviour
 
 	void Update()
 	{
-		switch(programState)
+		switch (programState)
 		{
 			case 0:
 				Debug.Log("Normal operation");

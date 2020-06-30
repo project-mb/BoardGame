@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class Board : MonoBehaviour
 {
+	public bool boardGenerated = false;
+
 	public GameObject tile;
 	public GameObject cornerTile;
 
@@ -18,6 +20,7 @@ public class Board : MonoBehaviour
 
 	public void GenerateNew(ushort width, ushort height) // TODO: Fix generation of rectangular boards
 	{
+		if (boardGenerated) return;
 		int idx = 1;
 
 		Vector3 pos;
@@ -83,6 +86,21 @@ public class Board : MonoBehaviour
 			tempTile.name = (idx++).ToString();
 			tiles.Add(Instantiate(tempTile, pos, Quaternion.Euler(0f, 270f, 0f), gameObject.transform));
 		}
+
+		//Set boardGenerated
+		boardGenerated = true;
+	}
+
+	public void Clear()
+	{
+		if (!boardGenerated) return;
+
+		//Destroy GameObjects and clear tiles List
+		tiles.ForEach(current => Destroy(current));
+		tiles.Clear();
+
+		//Unset boardGenerated
+		boardGenerated = false;
 	}
 
 	//TODO: Generate from Load-File (? .json)
