@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-	public static ushort programState = 0;
+	public Board board;
+
+	public ushort programState = 0;
+	public ushort boardWidth, boardHeight;
 
 	void Start()
 	{
-		// TODO: Generate Board object and call generation method
+		board.GenerateNew(boardWidth, boardHeight);
 	}
 
 	void Update()
 	{
 		switch(programState)
 		{
+			case 0:
+				Debug.Log("Normal operation");
+				break;
 			default:
 				Debug.Log("Invalid programState"); // TODO: Handle error
 				break;

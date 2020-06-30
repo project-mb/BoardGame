@@ -9,14 +9,14 @@ public class Board : MonoBehaviour
 	public GameObject tile;
 	public GameObject cornerTile;
 
-	public static List<GameObject> tiles;
+	public List<GameObject> tiles;
 
 	private float tileWidth, tileHeight, cornerTileWidth, cornerTileHeight;
 
 	private GameObject tempTile;
 	private GameObject tempCorner;
 
-	public void GenerateNew(ushort width, ushort height)
+	public void GenerateNew(ushort width, ushort height) // TODO: Fix generation of rectangular boards
 	{
 		int idx = 1;
 
