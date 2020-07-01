@@ -4,82 +4,88 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-	public ITile TileType { get; set; }
+	public TileTemplate TileType { get; set; }
 }
 
-public interface ITile
+public abstract class TileTemplate
 {
-	void Action();
-}
-
-public class StartTile : ITile
-{
-	public virtual void Action()
+	public ushort ID { get; set; }
+	public float[,] PlayerPositions { get; } = new float[,]
 	{
-		Debug.Log("I am a StartTile");
+		{ }
+	};
+
+	public abstract void Action();
+}
+
+public class StartTile : TileTemplate
+{
+	public override void Action()
+	{
+		Debug.Log(ID + "I am a StartTile");
 	}
 }
 
-public class PlotTile : ITile
+public class PlotTile : TileTemplate
 {
-	public virtual void Action()
+	public override void Action()
 	{
-		Debug.Log("I am a PlotTile");
+		Debug.Log(ID + "I am a PlotTile");
 	}
 }
 
-public class GoToJailTile : ITile
+public class GoToJailTile : TileTemplate
 {
-	public virtual void Action()
+	public override void Action()
 	{
-		Debug.Log("I am a GoToJailTile");
+		Debug.Log(ID + "I am a GoToJailTile");
 	}
 }
 
-public class JailTile : ITile
+public class JailTile : TileTemplate
 {
-	public virtual void Action()
+	public override void Action()
 	{
-		Debug.Log("I am a JailTile");
+		Debug.Log(ID + "I am a JailTile");
 	}
 }
 
-public class ChanceTile : ITile
+public class ChanceTile : TileTemplate
 {
-	public virtual void Action()
+	public override void Action()
 	{
-		Debug.Log("I am a ChanceTile");
+		Debug.Log(ID + "I am a ChanceTile");
 	}
 }
 
-public class SpecialPlotTile : ITile
+public class SpecialPlotTile : TileTemplate
 {
-	public virtual void Action()
+	public override void Action()
 	{
-		Debug.Log("I am a SpecialPlotTile");
+		Debug.Log(ID + "I am a SpecialPlotTile");
 	}
 }
 
-public class FreeParkingTile : ITile
+public class FreeParkingTile : TileTemplate
 {
-	public virtual void Action()
+	public override void Action()
 	{
-		Debug.Log("I am a FreeParkingTile");
+		Debug.Log(ID + "I am a FreeParkingTile");
 	}
 }
 
-public class ChestTile : ITile
+public class ChestTile : TileTemplate
 {
-	public virtual void Action()
+	public override void Action()
 	{
-		Debug.Log("I am a ChestTile");
+		Debug.Log(ID + "I am a ChestTile");
 	}
 }
 
-public class TaxTile : ITile
+public class TaxTile : TileTemplate
 {
-	public virtual void Action()
+	public override void Action()
 	{
-		Debug.Log("I am a TaxTile");
+		Debug.Log(ID + "I am a TaxTile");
 	}
 }

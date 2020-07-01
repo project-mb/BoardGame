@@ -9,9 +9,9 @@ using UnityEngine.SceneManagement;
 public class Board : MonoBehaviour
 {
 	public List<GameObject> TileObjects { get; } = new List<GameObject>();
-	public List<ITile> Tiles { get; } = new List<ITile>();
+	public List<TileTemplate> Tiles { get; } = new List<TileTemplate>();
 
-	public bool Generated { get; set; } = false;
+	public bool Generated { get; private set; } = false;
 
 	private float tileWidth, tileHeight, cornerTileWidth, cornerTileHeight;
 
@@ -92,38 +92,41 @@ public class Board : MonoBehaviour
 		//Set TileType
 		JsonTiles tiles = JsonUtility.FromJson<JsonTiles>(boardTiles.text);
 
+		ushort id = 0;
 		foreach (JsonTile current in tiles.tileTypes)
 		{
 			switch (current.tileType)
 			{
 				case "StartTile":
-					Tiles.Add(new StartTile());
+					Tiles.Add(new StartTile() { ID = id });
 					break;
 				case "PlotTile":
-					Tiles.Add(new PlotTile());
+					Tiles.Add(new PlotTile() { ID = id });
 					break;
 				case "GoToJailTile":
-					Tiles.Add(new GoToJailTile());
+					Tiles.Add(new GoToJailTile() { ID = id });
 					break;
 				case "JailTile":
-					Tiles.Add(new JailTile());
+					Tiles.Add(new JailTile() { ID = id });
 					break;
 				case "ChanceTile":
-					Tiles.Add(new ChanceTile());
+					Tiles.Add(new ChanceTile() { ID = id });
 					break;
 				case "SpecialPlotTile":
-					Tiles.Add(new SpecialPlotTile());
+					Tiles.Add(new SpecialPlotTile() { ID = id });
 					break;
 				case "FreeParkingTile":
-					Tiles.Add(new FreeParkingTile());
+					Tiles.Add(new FreeParkingTile() { ID = id });
 					break;
 				case "ChestTile":
-					Tiles.Add(new ChestTile());
+					Tiles.Add(new ChestTile() { ID = id });
 					break;
 				case "TaxTile":
-					Tiles.Add(new TaxTile());
+					Tiles.Add(new TaxTile() { ID = id });
 					break;
 			}
+
+			id++;
 		}
 
 		//TODO: Remove debugging code
