@@ -20,10 +20,9 @@ public class Main : MonoBehaviour
 		switch (programState)
 		{
 			case 0:
-				Debug.Log("Normal operation");
 				break;
 			default:
-				Debug.Log("Invalid programState"); // TODO: Handle error
+				Debug.Log("Invalid programState");  // TODO: Handle error
 				break;
 		}
 	}
