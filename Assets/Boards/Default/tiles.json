@@ -1,5 +1,123 @@
 [
 	{
-		"tileType": "StartTile"
+		"TileType": "StartTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "ChestTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "TaxTile"
+	},
+	{
+		"TileType": "SpecialPlotTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "ChanceTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "JailTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "SpecialPlotTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "SpecialPlotTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "ChestTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "FreeParkingTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "ChanceTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "SpecialPlotTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "SpecialPlotTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "GoToJailTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "ChestTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "SpecialPlotTile"
+	},
+	{
+		"TileType": "ChanceTile"
+	},
+	{
+		"TileType": "PlotTile"
+	},
+	{
+		"TileType": "TaxTile"
+	},
+	{
+		"TileType": "PlotTile"
 	}
+
 ]
