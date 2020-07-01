@@ -80,7 +80,7 @@ public class Board : MonoBehaviour
 
 		//Instanitiate TopRight Corner
 		idx++;
-		pos = new Vector3(cornerTileHeight + (width * tileWidth), 0f, 0f);
+		pos = new Vector3(cornerTileHeight + (height * tileWidth), 0f, 0f);
 		tempCorner.name = "tile" + (idx++).ToString();
 		TileObjects.Add(Instantiate(tempCorner, pos, Quaternion.identity, gameObject.transform));
 
