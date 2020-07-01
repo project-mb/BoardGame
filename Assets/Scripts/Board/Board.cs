@@ -12,7 +12,14 @@ public class Board : MonoBehaviour
 	public List<string> TileTypes { get; } = new List<string>
 	{
 		"StartTile",
-		"PlotTile"
+		"PlotTile",
+		"GoToJailTile",
+		"JailTile",
+		"ChanceTile",
+		"SpecialPlotTile",
+		"FreeParkingTile",
+		"ChestTile",
+		"TaxTile"
 	};
 
 	public bool Generated { get; set; } = false;
