@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
 using UnityEditor.Experimental.GraphView;
@@ -9,24 +10,13 @@ public class Board : MonoBehaviour
 {
 	public List<GameObject> TileObjects { get; } = new List<GameObject>();
 	public List<ITile> Tiles { get; } = new List<ITile>();
-	public List<string> TileTypes { get; } = new List<string>
-	{
-		"StartTile",
-		"PlotTile",
-		"GoToJailTile",
-		"JailTile",
-		"ChanceTile",
-		"SpecialPlotTile",
-		"FreeParkingTile",
-		"ChestTile",
-		"TaxTile"
-	};
 
 	public bool Generated { get; set; } = false;
 
 	private float tileWidth, tileHeight, cornerTileWidth, cornerTileHeight;
 
 	public GameObject tile, cornerTile;
+	public TextAsset boardTiles;
 
 	public void GenerateNew(ushort width, ushort height) // TODO: Fix generation of rectangular boards
 	{
@@ -99,23 +89,43 @@ public class Board : MonoBehaviour
 			TileObjects.Add(Instantiate(tempTile, pos, Quaternion.Euler(0f, 270f, 0f), gameObject.transform));
 		}
 
-		//Get TileType specific classes
-		bool toggle = false;
-		foreach (GameObject current in TileObjects)
-		{
-			if (toggle)
-			{
-				current.GetComponent<Tile>().TileType = new StartTile();
-			}
-			else
-			{
-				current.GetComponent<Tile>().TileType = new PlotTile();
-			}
+		//Set TileType
+		JsonTiles tiles = JsonUtility.FromJson<JsonTiles>(boardTiles.text);
 
-			toggle = !toggle;
-			Tiles.Add(current.GetComponent<Tile>().TileType);
+		foreach (JsonTile current in tiles.tileTypes)
+		{
+			switch (current.tileType)
+			{
+				case "StartTile":
+					Tiles.Add(new StartTile());
+					break;
+				case "PlotTile":
+					Tiles.Add(new PlotTile());
+					break;
+				case "GoToJailTile":
+					Tiles.Add(new GoToJailTile());
+					break;
+				case "JailTile":
+					Tiles.Add(new JailTile());
+					break;
+				case "ChanceTile":
+					Tiles.Add(new ChanceTile());
+					break;
+				case "SpecialPlotTile":
+					Tiles.Add(new SpecialPlotTile());
+					break;
+				case "FreeParkingTile":
+					Tiles.Add(new FreeParkingTile());
+					break;
+				case "ChestTile":
+					Tiles.Add(new ChestTile());
+					break;
+				case "TaxTile":
+					Tiles.Add(new TaxTile());
+					break;
+			}
 		}
-		
+
 		//TODO: Remove debugging code
 		Tiles.ForEach(current => current.Action());
 
@@ -136,4 +146,16 @@ public class Board : MonoBehaviour
 	}
 
 	//TODO: Generate from Load-File (? .json)
+}
+
+[Serializable]
+public class JsonTiles
+{
+	public List<JsonTile> tileTypes;
+}
+
+[Serializable]
+public class JsonTile
+{
+	public string tileType;
 }

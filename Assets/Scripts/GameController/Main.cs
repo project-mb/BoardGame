@@ -22,7 +22,7 @@ public class Main : MonoBehaviour
 			case 0:
 				break;
 			default:
-				Debug.Log("Invalid programState");  // TODO: Handle error
+				Debug.LogError("Invalid programState");  // TODO: Handle error
 				break;
 		}
 	}

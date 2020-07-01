@@ -14,7 +14,7 @@ public interface ITile
 
 public class StartTile : ITile
 {
-	public void Action()
+	public virtual void Action()
 	{
 		Debug.Log("I am a StartTile");
 	}
@@ -22,7 +22,7 @@ public class StartTile : ITile
 
 public class PlotTile : ITile
 {
-	public void Action()
+	public virtual void Action()
 	{
 		Debug.Log("I am a PlotTile");
 	}
@@ -30,7 +30,7 @@ public class PlotTile : ITile
 
 public class GoToJailTile : ITile
 {
-	public void Action()
+	public virtual void Action()
 	{
 		Debug.Log("I am a GoToJailTile");
 	}
@@ -38,7 +38,7 @@ public class GoToJailTile : ITile
 
 public class JailTile : ITile
 {
-	public void Action()
+	public virtual void Action()
 	{
 		Debug.Log("I am a JailTile");
 	}
@@ -46,7 +46,7 @@ public class JailTile : ITile
 
 public class ChanceTile : ITile
 {
-	public void Action()
+	public virtual void Action()
 	{
 		Debug.Log("I am a ChanceTile");
 	}
@@ -54,7 +54,7 @@ public class ChanceTile : ITile
 
 public class SpecialPlotTile : ITile
 {
-	public void Action()
+	public virtual void Action()
 	{
 		Debug.Log("I am a SpecialPlotTile");
 	}
@@ -62,7 +62,7 @@ public class SpecialPlotTile : ITile
 
 public class FreeParkingTile : ITile
 {
-	public void Action()
+	public virtual void Action()
 	{
 		Debug.Log("I am a FreeParkingTile");
 	}
@@ -70,7 +70,7 @@ public class FreeParkingTile : ITile
 
 public class ChestTile : ITile
 {
-	public void Action()
+	public virtual void Action()
 	{
 		Debug.Log("I am a ChestTile");
 	}
@@ -78,7 +78,7 @@ public class ChestTile : ITile
 
 public class TaxTile : ITile
 {
-	public void Action()
+	public virtual void Action()
 	{
 		Debug.Log("I am a TaxTile");
 	}
