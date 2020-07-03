@@ -153,7 +153,6 @@ MonoBehaviour:
   tile: {fileID: 4100096996083556656, guid: efcc190f6d446ac408ddc8a1fe786b80, type: 3}
   cornerTile: {fileID: 300074937568083964, guid: 5fc4927b19e93de4aa28c0ad65899c7c,
     type: 3}
-  jsonBoardTiles: {fileID: 4900000, guid: 2a6055e232934db40a1c4f0627e250a5, type: 3}
 --- !u!4 &28842613
 Transform:
   m_ObjectHideFlags: 0
@@ -245,6 +244,7 @@ MonoBehaviour:
   boardWidth: 9
   boardHeight: 9
   numPlayers: 3
+  jsonBoardTiles: {fileID: 4900000, guid: 2a6055e232934db40a1c4f0627e250a5, type: 3}
   playerPrefab: {fileID: 7252059193722802623, guid: 77575ed314422754797b1a0ca3e73519,
     type: 3}
   playerPosition: 0

@@ -10,6 +10,7 @@ public class Main : MonoBehaviour
 	public ushort programState = 0; // TODO: Change to property after testing
 	public ushort boardWidth, boardHeight;
 	public byte numPlayers = 8;
+	public TextAsset jsonBoardTiles;
 
 	public GameObject playerPrefab;
 	private GameObject playerInstance;
@@ -19,7 +20,7 @@ public class Main : MonoBehaviour
 
 	void Start()
 	{
-		board.GenerateNew(boardWidth, boardHeight);
+		board.GenerateNew(jsonBoardTiles);
 		playerInstance = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
 		player = playerInstance.GetComponent<Player>();
 	}

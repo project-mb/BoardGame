@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
+using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,13 +16,20 @@ public class Board : MonoBehaviour
 	private float tileWidth, tileHeight, cornerTileWidth, cornerTileHeight;
 
 	public GameObject tile, cornerTile;
-	public TextAsset jsonBoardTiles;
 
-	public void GenerateNew(ushort width, ushort height) // TODO: Fix generation of rectangular boards
+	public void GenerateNew(TextAsset jsonBoardTiles) // TODO: Fix generation of rectangular boards
 	{
-		if (Generated) return;
-		int idx = 0;
-		List<int> cornerTiles = new List<int>();
+		if (Generated) return;  // Return if Board already Generated
+
+		JsonTiles jsonTiles = JsonUtility.FromJson<JsonTiles>(jsonBoardTiles.text);
+
+		ushort width, height;
+
+		if (!CheckJson(jsonTiles, out width, out height)) return;  // Validate json
+
+		int idx = 0;  // Tile index
+
+		List<int> cornerTiles = new List<int>();  // Contains all corner Tiles, used at  
 
 		GameObject tempTile, tempCorner;
 
@@ -35,27 +43,35 @@ public class Board : MonoBehaviour
 		tempCorner = cornerTile;
 		tempTile = tile;
 
-		//Instanitiate BottomRight Corner
+		#region Instanitiate Bottom Right Corner
+
+		cornerTiles.Add(idx);
 		tempCorner.name = "tile" + (idx++).ToString();
 		Tiles.Add(Instantiate(tempCorner, gameObject.transform));
-		cornerTiles.Add(idx);
 
-		//Instanitiate Bottom Tiles
+		#endregion
+
+		#region Instanitiate Bottom Tiles
 		for (ushort bottom = 0; bottom < width; bottom++)
 		{
 			pos = new Vector3(0f, 0f, (cornerTileWidth / 2) + (tileWidth / 2) + (bottom * tileWidth));
 			tempTile.name = "tile" + (idx++).ToString();
 			Tiles.Add(Instantiate(tempTile, pos, Quaternion.identity, gameObject.transform));
 		}
+		#endregion
 
-		//Instanitiate BottomLeft Corner
+		#region Instanitiate Bottom Left Corner
+
 		idx++;
 		pos = new Vector3(0f, 0f, cornerTileWidth + (width * tileWidth));
+		cornerTiles.Add(idx);
 		tempCorner.name = "tile" + (idx++).ToString();
 		Tiles.Add(Instantiate(tempCorner, pos, Quaternion.identity, gameObject.transform));
-		cornerTiles.Add(idx);
 
-		//Instanitiate Left Tiles
+		#endregion
+
+		#region Instantiate Left Tiles
+
 		for (ushort left = 0; left < height; left++)
 		{
 			pos = new Vector3((cornerTileHeight / 2) + (tileWidth / 2) + (left * tileWidth), 0f, cornerTileWidth + (width * tileWidth));
@@ -63,14 +79,20 @@ public class Board : MonoBehaviour
 			Tiles.Add(Instantiate(tempTile, pos, Quaternion.Euler(0f, 90f, 0f), gameObject.transform));
 		}
 
-		//Instanitiate TopLeft Corner
+		#endregion
+
+		#region Instanitiate TopLeft Corner
+
 		idx++;
 		pos = new Vector3(cornerTileHeight + (height * tileWidth), 0f, cornerTileWidth + (width * tileWidth));
+		cornerTiles.Add(idx);
 		tempCorner.name = "tile" + (idx++).ToString();
 		Tiles.Add(Instantiate(tempCorner, pos, Quaternion.identity, gameObject.transform));
-		cornerTiles.Add(idx);
 
-		//Instanitiate Top Tiles
+		#endregion
+
+		#region Instanitiate Top Tiles
+
 		for (ushort top = 0; top < width; top++)
 		{
 			pos = new Vector3(cornerTileHeight + (height * tileWidth), 0f, (cornerTileWidth / 2) + (width * tileWidth) - (tileWidth / 2) - (top * tileWidth));
@@ -78,14 +100,20 @@ public class Board : MonoBehaviour
 			Tiles.Add(Instantiate(tempTile, pos, Quaternion.Euler(0f, 180f, 0f), gameObject.transform));
 		}
 
-		//Instanitiate TopRight Corner
+		#endregion
+
+		#region Instanitiate TopRight Corner
+
 		idx++;
 		pos = new Vector3(cornerTileHeight + (height * tileWidth), 0f, 0f);
+		cornerTiles.Add(idx);
 		tempCorner.name = "tile" + (idx++).ToString();
 		Tiles.Add(Instantiate(tempCorner, pos, Quaternion.identity, gameObject.transform));
-		cornerTiles.Add(idx);
 
-		//Instanitiate Right Tiles
+		#endregion
+
+		#region Instanitiate Right Tiles
+
 		for (ushort right = 0; right < height; right++)
 		{
 			pos = new Vector3((cornerTileHeight / 2) + (height * tileWidth) - tileWidth / 2 - (right * tileWidth), 0f, 0f);
@@ -93,11 +121,12 @@ public class Board : MonoBehaviour
 			Tiles.Add(Instantiate(tempTile, pos, Quaternion.Euler(0f, 270f, 0f), gameObject.transform));
 		}
 
-		//Set TileType
-		JsonTiles tiles = JsonUtility.FromJson<JsonTiles>(jsonBoardTiles.text);
+		#endregion
+
+		#region Set TileTypes
 
 		ushort id = 0;
-		foreach (JsonTile current in tiles.tileTypes)
+		foreach (JsonTile current in jsonTiles.tileTypes)
 		{
 			switch (current.tileType)
 			{
@@ -130,11 +159,30 @@ public class Board : MonoBehaviour
 					break;
 			}
 
+			if (cornerTiles.Contains(id))
+			{
+				Tiles[id].GetComponent<Tile>().SpecificTile.IsCornerTile = true;
+				Debug.Log(Tiles[id].GetComponent<Tile>().SpecificTile.ID);
+			}
+
 			id++;
 		}
 
-		//Set boardGenerated
+		foreach(GameObject current in Tiles)
+		{
+			Debug.Log(current.GetComponent<Tile>().SpecificTile.ID);
+		}
+
+		#endregion
+
+		// Set Generated flag
 		Generated = true;
+	}
+
+	private bool CheckJson(JsonTiles tiles, out ushort width, out ushort height)
+	{
+		width = 9; height = 9;
+		return true;
 	}
 
 	public void Clear()
