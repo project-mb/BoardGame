@@ -4,18 +4,32 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-	public TileTemplate TileType { get; set; }
+	public TileTemplate SpecificTile { get; set; }
 }
 
 public abstract class TileTemplate
 {
 	public ushort ID { get; set; }
-	public float[,] PlayerPositions { get; } = new float[,]
-	{
-		{ }
-	};
+	public bool IsCornerTile { get; set; } = false;
+	public float[,] PlayerPositions { get; private set; }
 
 	public abstract void Action();
+
+	public TileTemplate()
+	{
+		PlayerPositions = new float[,]
+		{
+			{ -0.35f, 0.2f},
+			{ -0.35f, 0.066667f},
+			{ -0.35f, -0.06667f},
+			{ -0.35f, -0.2f},
+			{ -0.1f, 0.2f},
+			{ -0.1f, 0.066667f},
+			{ -0.1f, -0.06667f},
+			{ -0.1f, -0.2f}
+
+		};
+	}
 }
 
 public class StartTile : TileTemplate

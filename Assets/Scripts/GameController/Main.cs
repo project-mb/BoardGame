@@ -11,9 +11,17 @@ public class Main : MonoBehaviour
 	public ushort boardWidth, boardHeight;
 	public byte numPlayers = 8;
 
+	public GameObject playerPrefab;
+	private GameObject playerInstance;
+	private Player player;
+	public int playerPosition;
+	public float x, z;
+
 	void Start()
 	{
 		board.GenerateNew(boardWidth, boardHeight);
+		playerInstance = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
+		player = playerInstance.GetComponent<Player>();
 	}
 
 	void Update()
@@ -22,7 +30,7 @@ public class Main : MonoBehaviour
 		/*
 		* ProgramStates:
 		* 0: Do nothing
-		* 1: Rolling dice
+		* 1: Player active
 		*/
 
 		switch (programState)
@@ -30,17 +38,24 @@ public class Main : MonoBehaviour
 			case 0:
 				break;
 			case 1:
-				Dice dice = GameObject.Find("Dice").GetComponent<Dice>();
-				if(Input.GetKey(KeyCode.Return))
+
+				if (Input.GetKey(KeyCode.RightArrow))
 				{
-					int face1, face2;
-					bool doubles = dice.Roll(out face1, out face2);
-					Debug.Log($"{face1} + {face2} = {face1 + face2}" + (doubles ? ", DOUBLES" : ""));
-					Thread.Sleep(100);
+					playerPosition++;
+					if(playerPosition >= board.Tiles.Count)
+					{
+						playerPosition = 0;
+					}
 				}
-
-
-
+				else if (Input.GetKey(KeyCode.LeftArrow))
+				{
+					playerPosition--;
+					if (playerPosition < 0)
+					{
+						playerPosition = board.Tiles.Count - 1;
+					}
+				}
+				player.MoveTo(board.Tiles[playerPosition]);
 				break;
 			default:
 				Debug.LogError("Invalid programState");  // TODO: Handle error
