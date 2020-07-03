@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-	public Board board;
+	public static Board board;
 
-	public ushort programState = 0; // TODO: Change to property after testing
-	public ushort boardWidth, boardHeight;
-	public byte numPlayers = 8;
+	public static ushort programState = 0; // TODO: Change to property after testing
+	public static byte numPlayers = 8;
 	public TextAsset jsonBoardTiles;
 
+
+	// TODO: Remove debug code
 	public GameObject playerPrefab;
 	private GameObject playerInstance;
 	private Player player;
