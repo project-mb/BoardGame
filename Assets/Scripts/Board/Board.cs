@@ -17,7 +17,7 @@ public class Board : MonoBehaviour
 
 	private float tileWidth, tileHeight, cornerTileWidth, cornerTileHeight;
 
-	public GameObject tile, cornerTile;
+	public GameObject tile, cornerTile;  // Prefabs
 
 	public void GenerateNew(TextAsset jsonBoardTiles) // TODO: Fix generation of rectangular boards
 	{
@@ -26,8 +26,6 @@ public class Board : MonoBehaviour
 		JsonTiles jsonTiles = JsonUtility.FromJson<JsonTiles>(jsonBoardTiles.text);
 
 		if (!CheckJson(jsonTiles, out width, out height)) return;  // Validate json
-
-		int idx = 0;  // Tile index
 
 		List<int> cornerTiles = new List<int>();  // Contains all corner Tiles, used at  
 
@@ -43,11 +41,14 @@ public class Board : MonoBehaviour
 		tempCorner = cornerTile;
 		tempTile = tile;
 
+		int idx = 0;  // Tile index
+
 		#region Instanitiate Bottom Right Corner
 
+		tempCorner.name = "tile" + idx.ToString();
 		cornerTiles.Add(idx);
-		tempCorner.name = "tile" + (idx++).ToString();
 		Tiles.Add(Instantiate(tempCorner, gameObject.transform));
+		idx++;
 
 		#endregion
 
@@ -55,18 +56,19 @@ public class Board : MonoBehaviour
 		for (ushort bottom = 0; bottom < width; bottom++)
 		{
 			pos = new Vector3(0f, 0f, (cornerTileWidth / 2) + (tileWidth / 2) + (bottom * tileWidth));
-			tempTile.name = "tile" + (idx++).ToString();
+			tempTile.name = "tile" + idx.ToString();
 			Tiles.Add(Instantiate(tempTile, pos, Quaternion.identity, gameObject.transform));
+			idx++;
 		}
 		#endregion
 
 		#region Instanitiate Bottom Left Corner
 
-		idx++;
 		pos = new Vector3(0f, 0f, cornerTileWidth + (width * tileWidth));
 		cornerTiles.Add(idx);
-		tempCorner.name = "tile" + (idx++).ToString();
+		tempCorner.name = "tile" + idx.ToString();
 		Tiles.Add(Instantiate(tempCorner, pos, Quaternion.identity, gameObject.transform));
+		idx++;
 
 		#endregion
 
@@ -75,19 +77,20 @@ public class Board : MonoBehaviour
 		for (ushort left = 0; left < height; left++)
 		{
 			pos = new Vector3((cornerTileHeight / 2) + (tileWidth / 2) + (left * tileWidth), 0f, cornerTileWidth + (width * tileWidth));
-			tempTile.name = "tile" + (idx++).ToString();
+			tempTile.name = "tile" + idx.ToString();
 			Tiles.Add(Instantiate(tempTile, pos, Quaternion.Euler(0f, 90f, 0f), gameObject.transform));
+			idx++;
 		}
 
 		#endregion
 
 		#region Instanitiate TopLeft Corner
 
-		idx++;
 		pos = new Vector3(cornerTileHeight + (height * tileWidth), 0f, cornerTileWidth + (width * tileWidth));
 		cornerTiles.Add(idx);
-		tempCorner.name = "tile" + (idx++).ToString();
+		tempCorner.name = "tile" + idx.ToString();
 		Tiles.Add(Instantiate(tempCorner, pos, Quaternion.identity, gameObject.transform));
+		idx++;
 
 		#endregion
 
@@ -96,19 +99,20 @@ public class Board : MonoBehaviour
 		for (ushort top = 0; top < width; top++)
 		{
 			pos = new Vector3(cornerTileHeight + (height * tileWidth), 0f, (cornerTileWidth / 2) + (width * tileWidth) - (tileWidth / 2) - (top * tileWidth));
-			tempTile.name = "tile" + (idx++).ToString();
+			tempTile.name = "tile" + idx.ToString();
 			Tiles.Add(Instantiate(tempTile, pos, Quaternion.Euler(0f, 180f, 0f), gameObject.transform));
+			idx++;
 		}
 
 		#endregion
 
 		#region Instanitiate TopRight Corner
 
-		idx++;
 		pos = new Vector3(cornerTileHeight + (height * tileWidth), 0f, 0f);
 		cornerTiles.Add(idx);
-		tempCorner.name = "tile" + (idx++).ToString();
+		tempCorner.name = "tile" + idx.ToString();
 		Tiles.Add(Instantiate(tempCorner, pos, Quaternion.identity, gameObject.transform));
+		idx++;
 
 		#endregion
 
@@ -117,8 +121,9 @@ public class Board : MonoBehaviour
 		for (ushort right = 0; right < height; right++)
 		{
 			pos = new Vector3((cornerTileHeight / 2) + (height * tileWidth) - tileWidth / 2 - (right * tileWidth), 0f, 0f);
-			tempTile.name = "tile" + (idx++).ToString();
+			tempTile.name = "tile" + idx.ToString();
 			Tiles.Add(Instantiate(tempTile, pos, Quaternion.Euler(0f, 270f, 0f), gameObject.transform));
+			idx++;
 		}
 
 		#endregion

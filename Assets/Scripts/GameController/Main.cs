@@ -7,7 +7,7 @@ public class Main : MonoBehaviour
 {
 	public static Board board;
 
-	public static ushort programState = 0; // TODO: Change to property after testing
+	public static ushort programState = 1; // TODO: Change to property after testing
 	public static byte numPlayers = 8;
 	public TextAsset jsonBoardTiles;
 
