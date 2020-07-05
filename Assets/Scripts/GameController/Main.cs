@@ -21,6 +21,7 @@ public class Main : MonoBehaviour
 
 	void Start()
 	{
+		board = GameObject.Find("Board").GetComponent<Board>();
 		board.GenerateNew(jsonBoardTiles);
 		playerInstance = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
 		player = playerInstance.GetComponent<Player>();

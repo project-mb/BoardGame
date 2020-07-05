@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class Board : MonoBehaviour
 {
+	public static ushort width, height;
+
 	public List<GameObject> Tiles { get; } = new List<GameObject>();
 
 	public bool Generated { get; private set; } = false;
@@ -22,8 +24,6 @@ public class Board : MonoBehaviour
 		if (Generated) return;  // Return if Board already Generated
 
 		JsonTiles jsonTiles = JsonUtility.FromJson<JsonTiles>(jsonBoardTiles.text);
-
-		ushort width, height;
 
 		if (!CheckJson(jsonTiles, out width, out height)) return;  // Validate json
 

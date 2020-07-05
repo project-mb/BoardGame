@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour
 
 		xPos = (cornerTiles[0].transform.position.x + cornerTiles[1].transform.position.x) / 2;
 		zPos = (cornerTiles[0].transform.position.z + cornerTiles[3].transform.position.x) / 2;
-		yPos = 0;/*(myGame. > myGame.boardHeight) ? myGame.boardWidth : myGame.boardHeight;*/
+		yPos = (Board.width > Board.height) ? Board.width : Board.height;
 
 		Debug.Log(xPos + "/" + yPos + "/" + zPos);
 
