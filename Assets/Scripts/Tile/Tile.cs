@@ -9,11 +9,11 @@ public class Tile : MonoBehaviour
 
 public abstract class TileTemplate
 {
-	public ushort ID { get; set; }
-	public bool IsCornerTile { get; set; } = false;
-	public float[,] PlayerPositions { get; private set; }
+	public ushort ID { get; set; }  // Identifier of Tile
+	public bool IsCornerTile { get; set; } = false;  // Set if Tile is CornerTile
+	public float[,] PlayerPositions { get; private set; }  // Contains position
 
-	public abstract void Action();
+	public abstract void Action();  // Contains Action, which will be executed on Player entering the Tile
 
 	public TileTemplate()
 	{

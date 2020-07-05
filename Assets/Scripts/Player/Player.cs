@@ -13,7 +13,8 @@ public class Player : MonoBehaviour
 	{
 		TileTemplate specTile = tile.GetComponent<Tile>().SpecificTile;
 		transform.rotation = tile.transform.rotation;
-		transform.position = new Vector3(tile.transform.position.x + specTile.PlayerPositions[offset, 0], 0f, tile.transform.position.z + specTile.PlayerPositions[offset, 1]);
+		Vector3 targetPos = new Vector3(tile.transform.position.x + specTile.PlayerPositions[offset, 1], 0f, tile.transform.position.z + specTile.PlayerPositions[offset, 0]);
+		transform.position = targetPos;
 		Position = specTile.ID;
 		CurrentTile = tile;
 	}
