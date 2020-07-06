@@ -27,7 +27,7 @@ public class Main : MonoBehaviour
 		board = GameObject.Find("Board").GetComponent<Board>();
 		board.GenerateNew(jsonBoardTiles);
 
-		cam = GameObject.Find("CameraPivot").GetComponent<CameraController>();
+		cam = GameObject.Find("YPivot").GetComponent<CameraController>();
 		cam.Centralize();
 
 		playerInstance = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);

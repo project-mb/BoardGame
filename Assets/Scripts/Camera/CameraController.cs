@@ -1,67 +1,53 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class CameraController : MonoBehaviour
 {
-	[Range(0.1f, 5)]
-	public float offset = 0.5f;
-
 	public Camera cam;
-	public GameObject pivot;
+	public GameObject yPivot, xPivot;
 
 	public Transform target;
 
-	public float rotationSpeed = 250f;
-	public float zoomSensitivity = 0.75f;
+	[Header("Offsets")]
+	[Range(0.1f, 5)]
+	public float yPivotOffset = 0.5f;
 
-	private Vector3 startPos, endPos;
-	private float deltaX, deltaY;
-	private float dragDelta, rotDelta;
+	[Header("Range")]
+	public float minCamOffset = 5f;
+	public float maxCamOffset = 15f;
+	[HideInInspector]
+	public float minCamXRot = 10f;
+	[HideInInspector]
+	public float maxCamXRot = 85f;
 
-	private Vector3 camDir;
-
-	private int interval = 10;
+	[Header("Settings")]
+	public float rotationSpeed = 500f;
+	public float zoomSensitivity = 1f;
 
 	private void Update()
 	{
-		if (Main.programState != 0)
+		if (Main.programState > 0)
 		{
-			if (Input.GetMouseButton(Convert.ToInt32(MouseButton.LeftMouse)))
+			if (Input.GetMouseButton(1))
 			{
-				cam.transform.RotateAround(pivot.transform.position, Vector3.up, Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime);
-				//cam.transform.RotateAround(pivot.transform.position, Vector3.right, -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime);
-				//cam.transform.localRotation = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, 0f);
-
-				//if (Time.frameCount % interval == 0)
-				//{
-				//	startPos = cam.ScreenToWorldPoint(Input.mousePosition);
-				//	Debug.Log(Input.mousePosition);
-				//}
-				//else if (Time.frameCount % interval == 59)
-				//{
-				//	endPos = cam.ScreenToWorldPoint(Input.mousePosition);
-				//	Debug.DrawRay(cam.transform.position, startPos, Color.blue);
-				//	Debug.Log(Input.mousePosition);
-				//	Debug.Log(startPos + "\n" + endPos);
-
-				//	//deltaX = Math.Abs(endPos.x - startPos.x);
-				//	//deltaY = Math.Abs(endPos.y - startPos.y);
-				//	//Debug.Log(deltaX + "\n" + deltaY);
-				//	//dragDelta = Vector3.Angle(startPos, endPos);
-				//	//Debug.LogWarning(dragDelta);
-				//}
+				yPivot.transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime);
+				// TODO: Add Constraints (rotate)
+				xPivot.transform.Rotate(Vector3.right, -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime);
 			}
 
 			if (Input.mouseScrollDelta.y > 0)
 			{
-				pivot.transform.position = new Vector3(pivot.transform.position.x, pivot.transform.position.y - zoomSensitivity, pivot.transform.position.z);
+				if (Vector3.Distance(cam.transform.position, yPivot.transform.position) < minCamOffset - 1) return;
+				cam.transform.position = Vector3.MoveTowards(cam.transform.position, yPivot.transform.position, zoomSensitivity);
 			}
 			if (Input.mouseScrollDelta.y < 0)
 			{
-				pivot.transform.position = new Vector3(pivot.transform.position.x, pivot.transform.position.y + zoomSensitivity, pivot.transform.position.z);
+				if (Vector3.Distance(cam.transform.position, yPivot.transform.position) > maxCamOffset - 1) return;
+				cam.transform.position = Vector3.MoveTowards(cam.transform.position, yPivot.transform.position, -zoomSensitivity);
 			}
 		}
 	}
@@ -88,13 +74,13 @@ public class CameraController : MonoBehaviour
 		// Get Camera-yPos acordingly to Board width and height
 		yPos = (Board.width > Board.height) ? Board.width : Board.height;
 
-		pivot.transform.position = new Vector3(xPos, offset, zPos);
+		yPivot.transform.position = new Vector3(xPos, yPivotOffset, zPos);
 
 		cam.transform.localPosition = new Vector3(0f, yPos, 0f);
 	}
 
 	public void Focus()
 	{
-		pivot.transform.position = new Vector3(target.position.x, pivot.transform.position.y, target.position.z);
+		yPivot.transform.position = new Vector3(target.position.x, yPivot.transform.position.y, target.position.z);
 	}
 }

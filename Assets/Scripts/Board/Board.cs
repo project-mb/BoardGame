@@ -56,7 +56,7 @@ public class Board : MonoBehaviour
 
 		tempCorner.name = "tile" + idx.ToString();
 		cornerTiles.Add(idx);
-		Tiles.Add(Instantiate(tempCorner, pos, Quaternion.identity));
+		Tiles.Add(Instantiate(tempCorner, pos, Quaternion.identity, gameObject.transform));
 		idx++;
 
 		#endregion

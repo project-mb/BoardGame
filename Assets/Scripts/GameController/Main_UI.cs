@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -29,20 +30,20 @@ public class Main_UI : MonoBehaviour
 
 		background.color = new Color(0, 0, 0, 0f);
 
-		resume.GetComponentInChildren<Text>().color = new Color(
-			resume.GetComponentInChildren<Text>().color.r,
-			resume.GetComponentInChildren<Text>().color.g,
-			resume.GetComponentInChildren<Text>().color.b,
+		resume.GetComponentInChildren<TextMeshProUGUI>().color = new Color(
+			resume.GetComponentInChildren<TextMeshProUGUI>().color.r,
+			resume.GetComponentInChildren<TextMeshProUGUI>().color.g,
+			resume.GetComponentInChildren<TextMeshProUGUI>().color.b,
 			0f);
-		mainMenu.GetComponentInChildren<Text>().color = new Color(
-			mainMenu.GetComponentInChildren<Text>().color.r,
-			mainMenu.GetComponentInChildren<Text>().color.g,
-			mainMenu.GetComponentInChildren<Text>().color.b,
+		mainMenu.GetComponentInChildren<TextMeshProUGUI>().color = new Color(
+			mainMenu.GetComponentInChildren<TextMeshProUGUI>().color.r,
+			mainMenu.GetComponentInChildren<TextMeshProUGUI>().color.g,
+			mainMenu.GetComponentInChildren<TextMeshProUGUI>().color.b,
 			0f);
-		exit.GetComponentInChildren<Text>().color = new Color(
-			exit.GetComponentInChildren<Text>().color.r,
-			exit.GetComponentInChildren<Text>().color.g,
-			exit.GetComponentInChildren<Text>().color.b,
+		exit.GetComponentInChildren<TextMeshProUGUI>().color = new Color(
+			exit.GetComponentInChildren<TextMeshProUGUI>().color.r,
+			exit.GetComponentInChildren<TextMeshProUGUI>().color.g,
+			exit.GetComponentInChildren<TextMeshProUGUI>().color.b,
 			0f);
 
 		resume.image.color = new Color(resume.image.color.r, resume.image.color.g, resume.image.color.b, 0f);
@@ -116,20 +117,20 @@ public class Main_UI : MonoBehaviour
 
 		background.color = new Color(0, 0, 0, bgAlpha);
 
-		resume.GetComponentInChildren<Text>().color = new Color(
-			resume.GetComponentInChildren<Text>().color.r,
-			resume.GetComponentInChildren<Text>().color.g,
-			resume.GetComponentInChildren<Text>().color.b,
+		resume.GetComponentInChildren<TextMeshProUGUI>().color = new Color(
+			resume.GetComponentInChildren<TextMeshProUGUI>().color.r,
+			resume.GetComponentInChildren<TextMeshProUGUI>().color.g,
+			resume.GetComponentInChildren<TextMeshProUGUI>().color.b,
 			uiAlpha);
-		mainMenu.GetComponentInChildren<Text>().color = new Color(
-			mainMenu.GetComponentInChildren<Text>().color.r,
-			mainMenu.GetComponentInChildren<Text>().color.g,
-			mainMenu.GetComponentInChildren<Text>().color.b,
+		mainMenu.GetComponentInChildren<TextMeshProUGUI>().color = new Color(
+			mainMenu.GetComponentInChildren<TextMeshProUGUI>().color.r,
+			mainMenu.GetComponentInChildren<TextMeshProUGUI>().color.g,
+			mainMenu.GetComponentInChildren<TextMeshProUGUI>().color.b,
 			uiAlpha);
-		exit.GetComponentInChildren<Text>().color = new Color(
-			exit.GetComponentInChildren<Text>().color.r,
-			exit.GetComponentInChildren<Text>().color.g,
-			exit.GetComponentInChildren<Text>().color.b,
+		exit.GetComponentInChildren<TextMeshProUGUI>().color = new Color(
+			exit.GetComponentInChildren<TextMeshProUGUI>().color.r,
+			exit.GetComponentInChildren<TextMeshProUGUI>().color.g,
+			exit.GetComponentInChildren<TextMeshProUGUI>().color.b,
 			uiAlpha);
 
 		resume.image.color = new Color(resume.image.color.r, resume.image.color.g, resume.image.color.b, uiAlpha);
