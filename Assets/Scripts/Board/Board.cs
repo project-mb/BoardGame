@@ -15,15 +15,16 @@ public class Board : MonoBehaviour
 
 	public bool Generated { get; private set; } = false;
 
-	private float tileWidth, tileHeight, cornerTileWidth, cornerTileHeight;
+	private float tileWidth, tileHeight, cornerTileWidth, cornerTileHeight, tileDepth, cornerTileDepth;
 
-	public GameObject tile, cornerTile;  // Prefabs
+	public GameObject tile, cornerTile, boardFill;  // Prefabs
 
 	public void GenerateNew(TextAsset jsonBoardTiles) // TODO: Fix generation of rectangular boards
 	{
 		if (Generated) return;  // Return if Board already Generated
 
 		JsonTiles jsonTiles = JsonUtility.FromJson<JsonTiles>(jsonBoardTiles.text);
+		float boardFillPosX, boardFillPosY, boardFillPosZ;
 
 		if (!CheckJson(jsonTiles, out width, out height)) return;  // Validate json
 
@@ -35,8 +36,10 @@ public class Board : MonoBehaviour
 
 		tileWidth = tile.transform.localScale.z;
 		tileHeight = tile.transform.localScale.x;
+		tileDepth = tile.transform.localScale.y;
 		cornerTileWidth = cornerTile.transform.localScale.z;
 		cornerTileHeight = cornerTile.transform.localScale.x;
+		cornerTileDepth = cornerTile.transform.localScale.y;
 
 		tempCorner = cornerTile;
 		tempTile = tile;
@@ -45,9 +48,15 @@ public class Board : MonoBehaviour
 
 		#region Instanitiate Bottom Right Corner
 
+		pos = new Vector3(0f, 0f, 0f);
+
+		// Used for BoardFill Position
+		boardFillPosX = -pos.x;
+		boardFillPosZ = -pos.z;
+
 		tempCorner.name = "tile" + idx.ToString();
 		cornerTiles.Add(idx);
-		Tiles.Add(Instantiate(tempCorner, gameObject.transform));
+		Tiles.Add(Instantiate(tempCorner, pos, Quaternion.identity));
 		idx++;
 
 		#endregion
@@ -65,6 +74,10 @@ public class Board : MonoBehaviour
 		#region Instanitiate Bottom Left Corner
 
 		pos = new Vector3(0f, 0f, cornerTileWidth + (width * tileWidth));
+
+		// Used for BoardFill Position
+		boardFillPosZ += pos.z;
+
 		cornerTiles.Add(idx);
 		tempCorner.name = "tile" + idx.ToString();
 		Tiles.Add(Instantiate(tempCorner, pos, Quaternion.identity, gameObject.transform));
@@ -109,6 +122,10 @@ public class Board : MonoBehaviour
 		#region Instanitiate TopRight Corner
 
 		pos = new Vector3(cornerTileHeight + (height * tileWidth), 0f, 0f);
+
+		// Used for BoardFill Position
+		boardFillPosX += pos.x;
+
 		cornerTiles.Add(idx);
 		tempCorner.name = "tile" + idx.ToString();
 		Tiles.Add(Instantiate(tempCorner, pos, Quaternion.identity, gameObject.transform));
@@ -125,6 +142,21 @@ public class Board : MonoBehaviour
 			Tiles.Add(Instantiate(tempTile, pos, Quaternion.Euler(0f, 270f, 0f), gameObject.transform));
 			idx++;
 		}
+
+		#endregion
+
+		#region Instantiate BoardFill
+
+		// Can be variable if wanted
+		boardFillPosY = 0;
+		// Set position to middle of board
+		boardFill.transform.position = new Vector3(
+			boardFillPosX / 2, 
+			boardFillPosY - (tileDepth / 10 - boardFill.transform.localScale.y) / 2, 
+			boardFillPosZ / 2);
+		// Set scale to fill board hole
+		boardFill.transform.localScale = new Vector3(tileWidth * width, boardFill.transform.localScale.y, tileWidth * height);
+		Instantiate(boardFill);
 
 		#endregion
 
@@ -188,7 +220,7 @@ public class Board : MonoBehaviour
 						break;
 
 					case 2:
-						tilePos = TilePosition.Top; 
+						tilePos = TilePosition.Top;
 						for (byte i = 0; i < Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions.Length; i++)
 						{
 							Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i] = Quaternion.Euler(0f, 180f, 0f) * Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i];

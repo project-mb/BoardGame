@@ -37,7 +37,6 @@ public class Player : MonoBehaviour
 
 		targetPos = new Vector3(tile.transform.position.x + specTile.PlayerPositions[nextFreePos].z, 0f, tile.transform.position.z + specTile.PlayerPositions[nextFreePos].x);
 
-		Debug.Log(specTile.PlayerPositions[nextFreePos]);
 
 		CurrentTile.GetComponent<Tile>().SpecificTile.OccupiedPositions[OffsetPosition] = false;  // Could be an error
 

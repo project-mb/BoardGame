@@ -153,6 +153,8 @@ MonoBehaviour:
   tile: {fileID: 4100096996083556656, guid: efcc190f6d446ac408ddc8a1fe786b80, type: 3}
   cornerTile: {fileID: 300074937568083964, guid: 5fc4927b19e93de4aa28c0ad65899c7c,
     type: 3}
+  boardFill: {fileID: 1434746573418250190, guid: ff00a14d39840094e80415226bafc1ec,
+    type: 3}
 --- !u!4 &28842613
 Transform:
   m_ObjectHideFlags: 0
@@ -374,8 +376,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 7252059193722802623, guid: 77575ed314422754797b1a0ca3e73519,
     type: 3}
   playerPosition: 0
-  x: 0
-  z: 0
+  playerPosition2: 0
 --- !u!4 &656652058
 Transform:
   m_ObjectHideFlags: 0
@@ -646,9 +647,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e00b802b357259468ce5f944f516d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 1
+  offset: 3.09
   cam: {fileID: 963194227}
   pivot: {fileID: 858386475}
+  target: {fileID: 0}
   rotationSpeed: 250
   zoomSensitivity: 0.75
 --- !u!1 &963194225
@@ -999,8 +1001,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 858386477}
-        m_MethodName: Centralize
+      - m_Target: {fileID: 656652059}
+        m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1194,7 +1196,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1582707241}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 656652059}
+        m_MethodName: MainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1582707241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1313,7 +1326,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1706473263}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 656652059}
+        m_MethodName: Exit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1706473263
 MonoBehaviour:
   m_ObjectHideFlags: 0

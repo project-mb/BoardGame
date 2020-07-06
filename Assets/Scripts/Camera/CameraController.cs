@@ -12,6 +12,8 @@ public class CameraController : MonoBehaviour
 	public Camera cam;
 	public GameObject pivot;
 
+	public Transform target;
+
 	public float rotationSpeed = 250f;
 	public float zoomSensitivity = 0.75f;
 
@@ -25,45 +27,43 @@ public class CameraController : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetMouseButton(Convert.ToInt32(MouseButton.LeftMouse)))
+		if (Main.programState != 0)
 		{
-			cam.transform.RotateAround(pivot.transform.position, Vector3.up, Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime);
-			//cam.transform.RotateAround(pivot.transform.position, Vector3.right, -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime);
-			//cam.transform.localRotation = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, 0f);
+			if (Input.GetMouseButton(Convert.ToInt32(MouseButton.LeftMouse)))
+			{
+				cam.transform.RotateAround(pivot.transform.position, Vector3.up, Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime);
+				//cam.transform.RotateAround(pivot.transform.position, Vector3.right, -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime);
+				//cam.transform.localRotation = Quaternion.Euler(Quaternion.identity.x, Quaternion.identity.y, 0f);
 
-			//if (Time.frameCount % interval == 0)
-			//{
-			//	startPos = cam.ScreenToWorldPoint(Input.mousePosition);
-			//	Debug.Log(Input.mousePosition);
-			//}
-			//else if (Time.frameCount % interval == 59)
-			//{
-			//	endPos = cam.ScreenToWorldPoint(Input.mousePosition);
-			//	Debug.DrawRay(cam.transform.position, startPos, Color.blue);
-			//	Debug.Log(Input.mousePosition);
-			//	Debug.Log(startPos + "\n" + endPos);
+				//if (Time.frameCount % interval == 0)
+				//{
+				//	startPos = cam.ScreenToWorldPoint(Input.mousePosition);
+				//	Debug.Log(Input.mousePosition);
+				//}
+				//else if (Time.frameCount % interval == 59)
+				//{
+				//	endPos = cam.ScreenToWorldPoint(Input.mousePosition);
+				//	Debug.DrawRay(cam.transform.position, startPos, Color.blue);
+				//	Debug.Log(Input.mousePosition);
+				//	Debug.Log(startPos + "\n" + endPos);
 
-			//	//deltaX = Math.Abs(endPos.x - startPos.x);
-			//	//deltaY = Math.Abs(endPos.y - startPos.y);
-			//	//Debug.Log(deltaX + "\n" + deltaY);
-			//	//dragDelta = Vector3.Angle(startPos, endPos);
-			//	//Debug.LogWarning(dragDelta);
-			//}
+				//	//deltaX = Math.Abs(endPos.x - startPos.x);
+				//	//deltaY = Math.Abs(endPos.y - startPos.y);
+				//	//Debug.Log(deltaX + "\n" + deltaY);
+				//	//dragDelta = Vector3.Angle(startPos, endPos);
+				//	//Debug.LogWarning(dragDelta);
+				//}
+			}
+
+			if (Input.mouseScrollDelta.y > 0)
+			{
+				pivot.transform.position = new Vector3(pivot.transform.position.x, pivot.transform.position.y - zoomSensitivity, pivot.transform.position.z);
+			}
+			if (Input.mouseScrollDelta.y < 0)
+			{
+				pivot.transform.position = new Vector3(pivot.transform.position.x, pivot.transform.position.y + zoomSensitivity, pivot.transform.position.z);
+			}
 		}
-
-		if(Input.mouseScrollDelta.y > 0)
-		{
-			pivot.transform.position = new Vector3(pivot.transform.position.x, pivot.transform.position.y - zoomSensitivity, pivot.transform.position.z);
-		}
-		if (Input.mouseScrollDelta.y < 0)
-		{
-			pivot.transform.position = new Vector3(pivot.transform.position.x, pivot.transform.position.y + zoomSensitivity, pivot.transform.position.z);
-		}
-	}
-
-	private void OnMouseDrag()
-	{
-		Debug.Log("Hi there");
 	}
 
 	public void Centralize()
@@ -91,5 +91,10 @@ public class CameraController : MonoBehaviour
 		pivot.transform.position = new Vector3(xPos, offset, zPos);
 
 		cam.transform.localPosition = new Vector3(0f, yPos, 0f);
+	}
+
+	public void Focus()
+	{
+		pivot.transform.position = new Vector3(target.position.x, pivot.transform.position.y, target.position.z);
 	}
 }

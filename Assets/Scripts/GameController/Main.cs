@@ -6,6 +6,7 @@ using UnityEngine;
 public class Main : MonoBehaviour
 {
 	public static Board board;
+	public static CameraController cam;
 
 	public static ushort programState = 1; // TODO: Change to property after testing
 	public static byte numPlayers = 8;
@@ -25,6 +26,9 @@ public class Main : MonoBehaviour
 	{
 		board = GameObject.Find("Board").GetComponent<Board>();
 		board.GenerateNew(jsonBoardTiles);
+
+		cam = GameObject.Find("CameraPivot").GetComponent<CameraController>();
+		cam.Centralize();
 
 		playerInstance = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
 		player = playerInstance.GetComponent<Player>();
