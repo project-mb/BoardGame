@@ -11,22 +11,29 @@ public abstract class TileTemplate
 {
 	public ushort ID { get; set; }  // Identifier of Tile
 	public bool IsCornerTile { get; set; } = false;  // Set if Tile is CornerTile
-	public float[,] PlayerPositions { get; private set; }  // Contains position
+	public TilePosition Position { get; set; }
+	public Vector3[] PlayerPositions { get; private set; }  // Contains position on normal tiles
+	public Vector3[] PlayerPositionsCorner { get; private set; }  // Contains position on corner tiles
+	public bool[] OccupiedPositions { get; set; } = { false, false, false, false, false, false, false, false };  // True, if the the position is already occupied by a player
 
 	public abstract void Action();  // Contains Action, which will be executed on Player entering the Tile
 
 	public TileTemplate()
 	{
-		PlayerPositions = new float[,]
+		PlayerPositions = new Vector3[]
 		{
-			{ -0.35f, 0.2f},
-			{ -0.35f, 0.066667f},
-			{ -0.35f, -0.06667f},
-			{ -0.35f, -0.2f},
-			{ -0.1f, 0.2f},
-			{ -0.1f, 0.066667f},
-			{ -0.1f, -0.06667f},
-			{ -0.1f, -0.2f}
+			new Vector3(-0.35f, 0f, 0.2f),
+			new Vector3(-0.35f, 0f, 0.066667f),
+			new Vector3(-0.35f, 0f, -0.06667f),
+			new Vector3(-0.35f, 0f, -0.2f),
+			new Vector3(-0.1f, 0f, 0.2f),
+			new Vector3(-0.1f, 0f, 0.066667f),
+			new Vector3(-0.1f, 0f, -0.06667f),
+			new Vector3(-0.1f, 0f,-0.2f)
+		};
+
+		PlayerPositionsCorner = new Vector3[]
+		{
 
 		};
 	}
@@ -102,4 +109,9 @@ public class TaxTile : TileTemplate
 	{
 		Debug.Log(ID + "I am a TaxTile");
 	}
+}
+
+public enum TilePosition
+{
+	Bottom, Left, Right, Top, Corner
 }

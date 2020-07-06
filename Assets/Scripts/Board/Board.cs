@@ -128,9 +128,12 @@ public class Board : MonoBehaviour
 
 		#endregion
 
-		#region Set TileTypes
+		#region Set TileTypes and Positions
 
 		ushort id = 0;
+		TilePosition tilePos = TilePosition.Corner;  // Tile position enum
+		byte cornersPassed = 0;
+
 		foreach (JsonTile current in jsonTiles.tileTypes)
 		{
 			switch (current.tileType)
@@ -164,18 +167,58 @@ public class Board : MonoBehaviour
 					break;
 			}
 
+			// Determine cornerTiles and if normal Tiles are at the bottom, left, top or right
 			if (cornerTiles.Contains(id))
 			{
 				Tiles[id].GetComponent<Tile>().SpecificTile.IsCornerTile = true;
-				Debug.Log(Tiles[id].GetComponent<Tile>().SpecificTile.ID);
+				switch (cornersPassed)
+				{
+					case 0:
+						tilePos = TilePosition.Bottom;
+						cornersPassed++;
+						break;
+
+					case 1:
+						tilePos = TilePosition.Left;
+						for (byte i = 0; i < Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions.Length; i++)
+						{
+							Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i] = Quaternion.Euler(0f, 0f, 0f) * Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i];
+						}
+						cornersPassed++;
+						break;
+
+					case 2:
+						tilePos = TilePosition.Top; 
+						for (byte i = 0; i < Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions.Length; i++)
+						{
+							Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i] = Quaternion.Euler(0f, 180f, 0f) * Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i];
+						}
+						cornersPassed++;
+						break;
+
+					case 3:
+						tilePos = TilePosition.Right;
+						for (byte i = 0; i < Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions.Length; i++)
+						{
+							Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i] = Quaternion.Euler(0f, -90f, 0f) * Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i];
+						}
+						cornersPassed++;
+						break;
+
+					default:
+						tilePos = TilePosition.Corner;
+						cornersPassed++;
+						break;
+				}
 			}
 
-			id++;
-		}
+			// Set Position of Tile, if it is not a cornerTile
+			if (!Tiles[id].GetComponent<Tile>().SpecificTile.IsCornerTile)
+				Tiles[id].GetComponent<Tile>().SpecificTile.Position = tilePos;
+			else
+				Tiles[id].GetComponent<Tile>().SpecificTile.Position = TilePosition.Corner;
 
-		foreach(GameObject current in Tiles)
-		{
-			Debug.Log(current.GetComponent<Tile>().SpecificTile.ID);
+			id++;
 		}
 
 		#endregion
@@ -194,15 +237,15 @@ public class Board : MonoBehaviour
 	{
 		if (!Generated) return;
 
-		//Destroy GameObjects and clear tiles List
+		// Destroy GameObjects and clear tiles List
 		Tiles.ForEach(current => Destroy(current));
 		Tiles.Clear();
 
-		//Unset boardGenerated
+		// Unset boardGenerated
 		Generated = false;
 	}
 
-	//TODO: Generate from Load-File (? .json)
+	// TODO: Generate from Load-File (? .json)
 }
 
 [Serializable]
