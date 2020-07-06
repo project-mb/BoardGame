@@ -15,16 +15,24 @@ public class Main : MonoBehaviour
 	// TODO: Remove debug code
 	public GameObject playerPrefab;
 	private GameObject playerInstance;
+	private GameObject playerInstance2;
 	private Player player;
+	private Player player2;
 	public int playerPosition;
-	public float x, z;
+	public int playerPosition2;
 
 	void Start()
 	{
 		board = GameObject.Find("Board").GetComponent<Board>();
 		board.GenerateNew(jsonBoardTiles);
+
 		playerInstance = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
 		player = playerInstance.GetComponent<Player>();
+		player.Init(board.Tiles[0]);
+
+		playerInstance2 = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
+		player2 = playerInstance2.GetComponent<Player>();
+		player2.Init(board.Tiles[0]);
 	}
 
 	void Update()
@@ -45,10 +53,11 @@ public class Main : MonoBehaviour
 				if (Input.GetKey(KeyCode.RightArrow))
 				{
 					playerPosition++;
-					if(playerPosition >= board.Tiles.Count)
+					if (playerPosition >= board.Tiles.Count)
 					{
 						playerPosition = 0;
 					}
+					Thread.Sleep(100);
 				}
 				else if (Input.GetKey(KeyCode.LeftArrow))
 				{
@@ -57,8 +66,31 @@ public class Main : MonoBehaviour
 					{
 						playerPosition = board.Tiles.Count - 1;
 					}
+					Thread.Sleep(100);
 				}
+				
+				if (Input.GetKey(KeyCode.D))
+				{
+					playerPosition2++;
+					if (playerPosition2 >= board.Tiles.Count)
+					{
+						playerPosition2 = 0;
+					}
+					Thread.Sleep(100);
+				}
+				else if (Input.GetKey(KeyCode.A))
+				{
+					playerPosition2--;
+					if (playerPosition2 < 0)
+					{
+						playerPosition2 = board.Tiles.Count - 1;
+					}
+					Thread.Sleep(100);
+				}
+
 				player.MoveTo(board.Tiles[playerPosition]);
+				player2.MoveTo(board.Tiles[playerPosition2]);
+
 				break;
 			default:
 				Debug.LogError("Invalid programState");  // TODO: Handle error
