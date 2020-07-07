@@ -151,8 +151,8 @@ public class Board : MonoBehaviour
 		boardFillPosY = 0;
 		// Set position to middle of board
 		boardFill.transform.position = new Vector3(
-			boardFillPosX / 2, 
-			boardFillPosY - (tileDepth / 10 - boardFill.transform.localScale.y) / 2, 
+			boardFillPosX / 2,
+			boardFillPosY - (tileDepth / 10 - boardFill.transform.localScale.y) / 2,
 			boardFillPosZ / 2);
 		// Set scale to fill board hole
 		boardFill.transform.localScale = new Vector3(tileWidth * width, boardFill.transform.localScale.y, tileWidth * height);
@@ -168,6 +168,7 @@ public class Board : MonoBehaviour
 
 		foreach (JsonTile current in jsonTiles.tileTypes)
 		{
+			// Create specific tile classes according to json
 			switch (current.tileType)
 			{
 				case "StartTile":
@@ -212,28 +213,16 @@ public class Board : MonoBehaviour
 
 					case 1:
 						tilePos = TilePosition.Left;
-						for (byte i = 0; i < Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions.Length; i++)
-						{
-							Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i] = Quaternion.Euler(0f, 0f, 0f) * Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i];
-						}
 						cornersPassed++;
 						break;
 
 					case 2:
 						tilePos = TilePosition.Top;
-						for (byte i = 0; i < Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions.Length; i++)
-						{
-							Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i] = Quaternion.Euler(0f, 180f, 0f) * Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i];
-						}
 						cornersPassed++;
 						break;
 
 					case 3:
 						tilePos = TilePosition.Right;
-						for (byte i = 0; i < Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions.Length; i++)
-						{
-							Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i] = Quaternion.Euler(0f, -90f, 0f) * Tiles[id].GetComponent<Tile>().SpecificTile.PlayerPositions[i];
-						}
 						cornersPassed++;
 						break;
 
@@ -251,6 +240,48 @@ public class Board : MonoBehaviour
 				Tiles[id].GetComponent<Tile>().SpecificTile.Position = TilePosition.Corner;
 
 			id++;
+		}
+
+		#endregion
+
+		#region Rotate PlayerPositions
+
+		foreach (GameObject tile in Tiles)
+		{
+			byte i = 0;
+			switch (tile.GetComponent<Tile>().SpecificTile.Position)
+			{
+				// PlayerPositions already rotated corrctly
+				case TilePosition.Bottom:
+					break;
+
+				// Rotate PlayerPositions by 90 degrees for left tiles
+				case TilePosition.Left:
+					foreach (Vector3 current in tile.GetComponent<Tile>().SpecificTile.PlayerPositions)
+					{
+						tile.GetComponent<Tile>().SpecificTile.PlayerPositions[i] = Quaternion.Euler(0f, 90f, 0f) * current;
+						i++;
+					}
+					break;
+
+				// Rotate PlayerPositions by 180 degrees for top tiles
+				case TilePosition.Top:
+					foreach (Vector3 current in tile.GetComponent<Tile>().SpecificTile.PlayerPositions)
+					{
+						tile.GetComponent<Tile>().SpecificTile.PlayerPositions[i] = Quaternion.Euler(0f, 180f, 0f) * current;
+						i++;
+					}
+					break;
+
+				// Rotate PlayerPositions by -90 degrees for right tiles
+				case TilePosition.Right:
+					foreach (Vector3 current in tile.GetComponent<Tile>().SpecificTile.PlayerPositions)
+					{
+						tile.GetComponent<Tile>().SpecificTile.PlayerPositions[i] = Quaternion.Euler(0f, -90f, 0f) * current;
+						i++;
+					}
+					break;
+			}
 		}
 
 		#endregion

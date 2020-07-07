@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-	public GameObject CurrentTile { get; private set; }
-	public ushort Position { get; private set; } = 0;
-	public byte OffsetPosition { get; private set; } = 0;
-	private Vector3 target = new Vector3();
+	public GameObject CurrentTile { get; private set; }  // Tile, which the player is currently standing on
+	public ushort Position { get; private set; } = 0;  // Contains the ID of the current tile
+	public byte OffsetPosition { get; private set; } = 0;  // Index of offset position of current tile
+	private Vector3 target = new Vector3();  // Position to move to
 
 	public void Init(GameObject tile)
 	{
@@ -35,12 +35,13 @@ public class Player : MonoBehaviour
 
 		transform.rotation = tile.transform.rotation;
 
-		targetPos = new Vector3(tile.transform.position.x + specTile.PlayerPositions[nextFreePos].z, 0f, tile.transform.position.z + specTile.PlayerPositions[nextFreePos].x);
+		Vector3 offset = specTile.PlayerPositions[nextFreePos];  // Set offset position to join queue on tile
 
+		targetPos = new Vector3(tile.transform.position.x + offset.x, 0f, tile.transform.position.z + offset.z);
 
-		CurrentTile.GetComponent<Tile>().SpecificTile.OccupiedPositions[OffsetPosition] = false;  // Could be an error
+		CurrentTile.GetComponent<Tile>().SpecificTile.OccupiedPositions[OffsetPosition] = false;  // Mark last position as free
 
-		specTile.OccupiedPositions[nextFreePos] = true;
+		specTile.OccupiedPositions[nextFreePos] = true;  // Mark current position as occupied
 		OffsetPosition = nextFreePos;
 
 		target = targetPos;
@@ -51,6 +52,6 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
-		transform.position = Vector3.MoveTowards(transform.position, target, 10.0f * Time.deltaTime);
+		transform.position = Vector3.MoveTowards(transform.position, target, 5.0f * Time.deltaTime);
 	}
 }

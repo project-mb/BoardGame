@@ -17,8 +17,19 @@ public class Main : MonoBehaviour
 	public GameObject playerPrefab;
 	private GameObject playerInstance;
 	private GameObject playerInstance2;
+	private GameObject playerInstance3;
+	private GameObject playerInstance4;
+	private GameObject playerInstance5;
+	private GameObject playerInstance6;
+	private GameObject playerInstance7;
 	private Player player;
 	private Player player2;
+	private Player player3;
+	private Player player4;
+	private Player player5;
+	private Player player6;
+	private Player player7;
+	private Player player8;
 	public int playerPosition;
 	public int playerPosition2;
 
@@ -37,6 +48,30 @@ public class Main : MonoBehaviour
 		playerInstance2 = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
 		player2 = playerInstance2.GetComponent<Player>();
 		player2.Init(board.Tiles[0]);
+
+		playerInstance2 = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
+		player3 = playerInstance2.GetComponent<Player>();
+		player3.Init(board.Tiles[0]);
+
+		playerInstance2 = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
+		player4 = playerInstance2.GetComponent<Player>();
+		player4.Init(board.Tiles[0]);
+
+		playerInstance2 = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
+		player5 = playerInstance2.GetComponent<Player>();
+		player5.Init(board.Tiles[0]);
+
+		playerInstance2 = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
+		player6 = playerInstance2.GetComponent<Player>();
+		player6.Init(board.Tiles[0]);
+
+		playerInstance2 = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
+		player7 = playerInstance2.GetComponent<Player>();
+		player7.Init(board.Tiles[0]);
+
+		playerInstance2 = Instantiate(playerPrefab, gameObject.transform.position, Quaternion.identity);
+		player8 = playerInstance2.GetComponent<Player>();
+		player8.Init(board.Tiles[0]);
 	}
 
 	void Update()
@@ -94,6 +129,12 @@ public class Main : MonoBehaviour
 
 				player.MoveTo(board.Tiles[playerPosition]);
 				player2.MoveTo(board.Tiles[playerPosition2]);
+				player3.MoveTo(board.Tiles[playerPosition2]);
+				player4.MoveTo(board.Tiles[playerPosition2]);
+				player5.MoveTo(board.Tiles[playerPosition2]);
+				player6.MoveTo(board.Tiles[playerPosition2]);
+				player7.MoveTo(board.Tiles[playerPosition2]);
+				player8.MoveTo(board.Tiles[playerPosition2]);
 
 				break;
 			default:
