@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -64,6 +65,31 @@ public abstract class TileTemplate
 			new Vector3(-0.25f, 0f, -0.11667f),
 			new Vector3(-0.25f, 0f, -0.35f)
 		};
+	}
+
+	public void OccupyPosition(byte pos)
+	{
+		OccupiedPositions[pos] = true;
+	}
+
+	public void FreePosition(byte pos)
+	{
+		OccupiedPositions[pos] = false;
+	}
+
+	// Occupy and return next free offset position
+	public byte OccupyNextFreePosition()
+	{
+		for (byte i = 0; i < OccupiedPositions.Length; i++)
+		{
+			if (!OccupiedPositions[i])
+			{
+				OccupyPosition(i);
+				return i;
+			}
+		}
+
+		return (byte)(OccupiedPositions.Length - 1);
 	}
 }
 
