@@ -21,12 +21,12 @@ public class Main_UI : MonoBehaviour
 	// Start is called before the first frame update
 	void Awake()
 	{
-		menu.enabled = true;
+		menu.gameObject.SetActive(true);
 		menuOpen = false;
 
-		resume.enabled = false;
-		mainMenu.enabled = false;
-		exit.enabled = false;
+		resume.gameObject.SetActive(false);
+		mainMenu.gameObject.SetActive(false);
+		exit.gameObject.SetActive(false);
 
 		background.color = new Color(0, 0, 0, 0f);
 
@@ -53,7 +53,7 @@ public class Main_UI : MonoBehaviour
 
 	private void Update()
 	{
-		if(Input.GetKeyUp(KeyCode.Escape))
+		if (Input.GetKeyUp(KeyCode.Escape))
 		{
 			if (!menuOpen)
 			{
@@ -99,9 +99,9 @@ public class Main_UI : MonoBehaviour
 
 			Main.programState = 0;
 
-			resume.enabled = true;
-			mainMenu.enabled = true;
-			exit.enabled = true;
+			resume.gameObject.SetActive(true);
+			mainMenu.gameObject.SetActive(true);
+			exit.gameObject.SetActive(true);
 		}
 		else
 		{
@@ -109,9 +109,9 @@ public class Main_UI : MonoBehaviour
 
 			Main.programState = previousProgramState;
 
-			resume.enabled = false;
-			mainMenu.enabled = false;
-			exit.enabled = false;
+			resume.gameObject.SetActive(false);
+			mainMenu.gameObject.SetActive(false);
+			exit.gameObject.SetActive(false);
 		}
 
 

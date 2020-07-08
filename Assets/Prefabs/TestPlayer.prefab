@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2737777445871382980}
   - component: {fileID: 9049392166628709103}
+  - component: {fileID: 8145193384788288905}
   m_Layer: 0
   m_Name: TestPlayer
   m_TagString: Untagged
@@ -44,7 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad7f957f8a501a640b1dbc9ed93b8923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: 0
+--- !u!65 &8145193384788288905
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252059193722802623}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.20132177, y: 0.2722268, z: 0.1018818}
+  m_Center: {x: 0.0013341531, y: 0.084406614, z: -0.00017514825}
 --- !u!1001 &7463655485878658561
 PrefabInstance:
   m_ObjectHideFlags: 0

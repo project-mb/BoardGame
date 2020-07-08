@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class Dice : MonoBehaviour
@@ -20,7 +21,7 @@ public class Dice : MonoBehaviour
 
 	private void Update()
 	{
-		if(Input.GetMouseButton(0) && Main.programState > 0)
+		if (Input.GetMouseButton(0) && Main.programState > 0 && !EventSystem.current.IsPointerOverGameObject())
 		{
 			pos = cam.transform.position + cam.transform.forward * offset;
 

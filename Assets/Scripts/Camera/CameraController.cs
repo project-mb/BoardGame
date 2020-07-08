@@ -20,9 +20,7 @@ public class CameraController : MonoBehaviour
 	[Header("Range")]
 	public float minCamOffset = 5f;
 	public float maxCamOffset = 15f;
-	[HideInInspector]
 	public float minCamXRot = 10f;
-	[HideInInspector]
 	public float maxCamXRot = 85f;
 
 	[Header("Settings")]
@@ -36,9 +34,18 @@ public class CameraController : MonoBehaviour
 	private Vector3 currentFocus;
 	private Vector3 targetFocus;
 
+	private float saveRot;
+
+	private GameObject focus;
+
+	private bool canRotX;
+	//private bool canRotY;		// If wanted
+	private bool isHit;
+
 	private void Start()
 	{
 		targetFocus = yPivot.transform.position;
+		xPivot.transform.Rotate(Vector3.right, (maxCamXRot - 90));
 	}
 
 	private void Update()
@@ -47,31 +54,45 @@ public class CameraController : MonoBehaviour
 		{
 			if (Input.GetMouseButton(1))
 			{
+				// Set the yPivot rotation with the Mouse-X Axis and the rotationSpeed
 				yPivot.transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime);
-				// TODO: Add Constraints (rotate)
+				// Set the xPivot rotation with the Mouse-Y Axis and the rotationSpeed
 				xPivot.transform.Rotate(Vector3.right, -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime);
+
+				// TODO: Add rot constraints
 			}
 
 			if (Input.mouseScrollDelta.y > 0)
 			{
+				// Check if Cam to close to yPivot and move cam towards yPivot
 				if (Vector3.Distance(cam.transform.position, yPivot.transform.position) < minCamOffset - 1) return;
 				cam.transform.position = Vector3.MoveTowards(cam.transform.position, yPivot.transform.position, zoomSensitivity);
 			}
 			if (Input.mouseScrollDelta.y < 0)
 			{
+				// Check if Cam to far from yPivot and move cam -towards yPivot
 				if (Vector3.Distance(cam.transform.position, yPivot.transform.position) > maxCamOffset - 1) return;
 				cam.transform.position = Vector3.MoveTowards(cam.transform.position, yPivot.transform.position, -zoomSensitivity);
 			}
 
 			if (Input.GetKeyUp(KeyCode.F))
 			{
+				// Check Raycast hitInfo and set yPivot-Pos to hitInfo-Pos
 				ray = cam.ScreenPointToRay(Input.mousePosition);
 				if (Physics.Raycast(ray, out hitInfo))
 				{
-					targetFocus = new Vector3(hitInfo.collider.transform.position.x, targetFocus.y, hitInfo.collider.transform.position.z);
-					yPivot.transform.position = targetFocus;
+					isHit = true;
+				}
+				else
+				{
+					isHit = false;
 				}
 			}
+		}
+		if (isHit)
+		{
+			targetFocus = new Vector3(hitInfo.collider.transform.position.x, targetFocus.y, hitInfo.collider.transform.position.z);
+			yPivot.transform.position = targetFocus;
 		}
 	}
 

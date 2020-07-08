@@ -24,9 +24,12 @@ public class Main : MonoBehaviour
 
 	void Start()
 	{
+		programState = 1;
+
 		board = GameObject.Find("Board").GetComponent<Board>();
 		board.GenerateNew(jsonBoardTiles);
 
+		// Focus cam onto boardFill
 		cam = GameObject.Find("YPivot").GetComponent<CameraController>();
 		cam.Centralize();
 
