@@ -156,7 +156,7 @@ public class Board : MonoBehaviour
 			boardFillPosZ / 2);
 		// Set scale to fill board hole
 		boardFill.transform.localScale = new Vector3(tileWidth * width, boardFill.transform.localScale.y, tileWidth * height);
-		Instantiate(boardFill);
+		Instantiate(boardFill, gameObject.transform);
 
 		#endregion
 
@@ -173,30 +173,39 @@ public class Board : MonoBehaviour
 			{
 				case "StartTile":
 					Tiles[id].GetComponent<Tile>().SpecificTile = new StartTile() { ID = id };
+					Tiles[id].GetComponentInChildren<TextMeshPro>().text = current.tileType;
 					break;
 				case "PlotTile":
 					Tiles[id].GetComponent<Tile>().SpecificTile = new PlotTile() { ID = id };
+					Tiles[id].GetComponentInChildren<TextMeshPro>().text = current.tileType;
 					break;
 				case "GoToJailTile":
 					Tiles[id].GetComponent<Tile>().SpecificTile = new GoToJailTile() { ID = id };
+					Tiles[id].GetComponentInChildren<TextMeshPro>().text = current.tileType;
 					break;
 				case "JailTile":
 					Tiles[id].GetComponent<Tile>().SpecificTile = new JailTile() { ID = id };
+					Tiles[id].GetComponentInChildren<TextMeshPro>().text = current.tileType;
 					break;
 				case "ChanceTile":
 					Tiles[id].GetComponent<Tile>().SpecificTile = new ChanceTile() { ID = id };
+					Tiles[id].GetComponentInChildren<TextMeshPro>().text = current.tileType;
 					break;
 				case "SpecialPlotTile":
 					Tiles[id].GetComponent<Tile>().SpecificTile = new SpecialPlotTile() { ID = id };
+					Tiles[id].GetComponentInChildren<TextMeshPro>().text = current.tileType;
 					break;
 				case "FreeParkingTile":
 					Tiles[id].GetComponent<Tile>().SpecificTile = new FreeParkingTile() { ID = id };
+					Tiles[id].GetComponentInChildren<TextMeshPro>().text = current.tileType;
 					break;
 				case "ChestTile":
 					Tiles[id].GetComponent<Tile>().SpecificTile = new ChestTile() { ID = id };
+					Tiles[id].GetComponentInChildren<TextMeshPro>().text = current.tileType;
 					break;
 				case "TaxTile":
 					Tiles[id].GetComponent<Tile>().SpecificTile = new TaxTile() { ID = id };
+					Tiles[id].GetComponentInChildren<TextMeshPro>().text = current.tileType;
 					break;
 			}
 
