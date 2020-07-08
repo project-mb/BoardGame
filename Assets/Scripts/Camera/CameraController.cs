@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -27,6 +28,18 @@ public class CameraController : MonoBehaviour
 	[Header("Settings")]
 	public float rotationSpeed = 500f;
 	public float zoomSensitivity = 1f;
+	public float focusSpeed = 1f;
+
+	private Ray ray;
+	private RaycastHit hitInfo;
+
+	private Vector3 currentFocus;
+	private Vector3 targetFocus;
+
+	private void Start()
+	{
+		targetFocus = yPivot.transform.position;
+	}
 
 	private void Update()
 	{
@@ -48,6 +61,16 @@ public class CameraController : MonoBehaviour
 			{
 				if (Vector3.Distance(cam.transform.position, yPivot.transform.position) > maxCamOffset - 1) return;
 				cam.transform.position = Vector3.MoveTowards(cam.transform.position, yPivot.transform.position, -zoomSensitivity);
+			}
+
+			if (Input.GetKeyUp(KeyCode.F))
+			{
+				ray = cam.ScreenPointToRay(Input.mousePosition);
+				if (Physics.Raycast(ray, out hitInfo))
+				{
+					targetFocus = new Vector3(hitInfo.collider.transform.position.x, targetFocus.y, hitInfo.collider.transform.position.z);
+					yPivot.transform.position = targetFocus;
+				}
 			}
 		}
 	}

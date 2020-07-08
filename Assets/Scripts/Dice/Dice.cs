@@ -7,12 +7,13 @@ using UnityEngine.UIElements;
 
 public class Dice : MonoBehaviour
 {
+	public Camera cam;
 	public GameObject dice;
-	public float force;
 	public float offset;
+	public float force;
 
-	Vector3 pos;
-	GameObject temp;
+	private Vector3 pos;
+	private GameObject temp;
 
 	float a, b;
 	bool c;
@@ -21,10 +22,10 @@ public class Dice : MonoBehaviour
 	{
 		if(Input.GetMouseButton(0) && Main.programState > 0)
 		{
-			pos = Camera.main.transform.position + Camera.main.transform.forward * offset;
+			pos = cam.transform.position + cam.transform.forward * offset;
 
 			temp = Instantiate(dice, pos, Quaternion.identity);
-			temp.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * force);
+			temp.GetComponent<Rigidbody>().AddForce(cam.transform.forward * force * Time.deltaTime * 66f);
 
 			RollDice();
 		}
