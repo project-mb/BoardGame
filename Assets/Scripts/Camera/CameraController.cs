@@ -31,6 +31,7 @@ public class CameraController : MonoBehaviour
 	private Ray ray;
 	private RaycastHit hitInfo;
 
+	private Vector3 defaultFocus;
 	private Vector3 currentFocus;
 	private Vector3 targetFocus;
 
@@ -44,7 +45,8 @@ public class CameraController : MonoBehaviour
 
 	private void Start()
 	{
-		targetFocus = yPivot.transform.position;
+		defaultFocus = yPivot.transform.position;
+		targetFocus = defaultFocus;
 		xPivot.transform.Rotate(Vector3.right, (maxCamXRot - 90));
 	}
 
@@ -91,8 +93,15 @@ public class CameraController : MonoBehaviour
 		}
 		if (isHit)
 		{
-			targetFocus = new Vector3(hitInfo.collider.transform.position.x, targetFocus.y, hitInfo.collider.transform.position.z);
-			yPivot.transform.position = targetFocus;
+			if (hitInfo.collider != null)
+			{
+				targetFocus = new Vector3(hitInfo.collider.transform.position.x, targetFocus.y, hitInfo.collider.transform.position.z);
+				yPivot.transform.position = targetFocus;
+			}
+			else
+			{
+				yPivot.transform.position = defaultFocus;
+			}
 		}
 	}
 

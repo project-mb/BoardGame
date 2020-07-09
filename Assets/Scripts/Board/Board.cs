@@ -129,6 +129,9 @@ public class Board : MonoBehaviour
 		cornerTiles.Add(idx);
 		tempCorner.name = "tile" + idx.ToString();
 		Tiles.Add(Instantiate(tempCorner, pos, Quaternion.identity, gameObject.transform));
+
+		transform.GetChild(1).position = new Vector3(pos.x, transform.GetChild(1).position.y + cornerTileDepth, pos.z);
+
 		idx++;
 
 		#endregion

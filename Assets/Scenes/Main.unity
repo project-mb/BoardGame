@@ -165,7 +165,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 30824666}
+  - {fileID: 2088788397}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -198,10 +200,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94fde3a9be15c849a2fd4c006ef0792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diceSpawn: {fileID: 2088788397}
   cam: {fileID: 963194227}
   dice: {fileID: 1084252427260261509, guid: 4da93111d0a0b9e4c9279d7c306dfe05, type: 3}
-  offset: 1.5
-  force: 750
+  offset: 5
+  delay: 2
+  force: 500
 --- !u!4 &30824666
 Transform:
   m_ObjectHideFlags: 0
@@ -209,12 +213,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30824664}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 28842613}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &32595187
 GameObject:
@@ -876,7 +880,7 @@ Transform:
   m_Children:
   - {fileID: 1829648566}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &858386477
 MonoBehaviour:
@@ -1372,7 +1376,7 @@ Transform:
   - {fileID: 837038269}
   - {fileID: 1437370752}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1361575855
 GameObject:
@@ -2177,3 +2181,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900980198}
   m_CullTransparentMesh: 0
+--- !u!1 &2088788396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2088788397}
+  m_Layer: 0
+  m_Name: DiceSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2088788397
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088788396}
+  m_LocalRotation: {x: 0.08052145, y: -0.3812272, z: 0.033353075, w: 0.9203639}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 28842613}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 10, y: -45, z: 0}
